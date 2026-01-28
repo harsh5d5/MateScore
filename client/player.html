@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Report | FootySquad</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+            gap: 1rem;
+        }
+
+        .stat-value {
+            font-weight: 800;
+            color: var(--accent-color);
+            text-align: right;
+            word-break: break-word;
+        }
+
+        .pitch-container {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 1.5/1;
+            background: #2e4d35;
+            border-radius: 12px;
+            position: relative;
+            margin: 0 auto;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+        }
+
+        .pitch-line {
+            position: absolute;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .mid-line {
+            height: 100%;
+            left: 50%;
+            border-left: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .center-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .penalty-box {
+            width: 15%;
+            height: 40%;
+            top: 30%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .penalty-box.left {
+            left: 0;
+            border-left: none;
+        }
+
+        .penalty-box.right {
+            right: 0;
+            border-right: none;
+        }
+
+        .heatmap-dot {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(22px);
+            animation: cloud-shimmer 10s infinite ease-in-out alternate;
+            pointer-events: none;
+            transform-origin: center;
+        }
+
+        @keyframes cloud-shimmer {
+            0% {
+                opacity: 0.15;
+                transform: scale(0.8) translate(-50%, -50%);
+            }
+
+            50% {
+                opacity: 0.45;
+                transform: scale(1.1) translate(-48%, -52%);
+            }
+
+            100% {
+                opacity: 0.15;
+                transform: scale(1) translate(-52%, -48%);
+            }
+        }
+
+        .radar-container {
+            width: 100%;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-container">
+        <div class="bg-glow"></div>
+    </div>
+
+    <main>
+        <header>
+            <div class="logo">FOOTYSQUAD</div>
+            <nav>
+                <a href="/" class="btn" style="color: var(--text-secondary);">Back to Search</a>
+            </nav>
+        </header>
+
+        <section class="glass-card" style="text-align: center; padding: 4rem 2rem;">
+            <div id="player-header">
+                <img id="player-img" src=""
+                    style="width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--accent-color); margin-bottom: 1.5rem;">
+                <h1 id="player-name" style="font-size: 3rem; margin-bottom: 0.5rem;">Loading Report...</h1>
+                <p id="player-meta" style="color: var(--text-secondary); font-size: 1.25rem;"></p>
+            </div>
+        </section>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+            <section class="glass-card">
+                <h2 style="margin-bottom: 1.5rem;">Season Statistics</h2>
+                <div id="stats-container" class="stats-grid">
+                    <!-- Stats will load here -->
+                </div>
+                <div class="radar-container"
+                    style="margin-top: 2rem; border-top: 1px solid var(--glass-border); padding-top: 2rem;">
+                    <canvas id="player-radar"></canvas>
+                </div>
+            </section>
+
+            <section class="glass-card">
+                <h2 style="margin-bottom: 1.5rem; text-align: center;">Season Heatmap</h2>
+                <div class="pitch-container" id="heatmap-pitch">
+                    <div class="pitch-line mid-line"></div>
+                    <div class="pitch-line center-circle"></div>
+                    <div class="pitch-line penalty-box left"></div>
+                    <div class="pitch-line penalty-box right"></div>
+                    <!-- Dots will be placed here -->
+                </div>
+                <p style="text-align: center; color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">
+                    Positional Heatmap based on Season Performance
+                </p>
+                <div style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.5rem; flex-wrap: wrap;">
+                    <div
+                        style="display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; color: var(--text-secondary);">
+                        <div style="width: 12px; height: 12px; background: #3F6B3C; border-radius: 2px;"></div> Low
+                    </div>
+                    <div
+                        style="display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; color: var(--text-secondary);">
+                        <div style="width: 12px; height: 12px; background: #C7D84B; border-radius: 2px;"></div>
+                    </div>
+                    <div
+                        style="display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; color: var(--text-secondary);">
+                        <div style="width: 12px; height: 12px; background: #FFD84D; border-radius: 2px;"></div>
+                    </div>
+                    <div
+                        style="display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; color: var(--text-secondary);">
+                        <div style="width: 12px; height: 12px; background: #FF9F1C; border-radius: 2px;"></div>
+                    </div>
+                    <div
+                        style="display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; color: var(--text-secondary);">
+                        <div style="width: 12px; height: 12px; background: #FF3B30; border-radius: 2px;"></div> High
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 FootySquad Project - Data Collecting Techniques</p>
+        </footer>
+    </main>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const playerName = urlParams.get('name');
+        const playerImg = urlParams.get('img');
+        const playerPos = urlParams.get('pos');
+        const playerNum = urlParams.get('num');
+        const profileUrl = urlParams.get('url');
+
+        document.getElementById('player-name').textContent = playerName;
+        document.getElementById('player-img').src = playerImg;
+        document.getElementById('player-meta').textContent = `#${playerNum} | ${playerPos}`;
+
+        async function loadDetails() {
+            const container = document.getElementById('stats-container');
+            const pitch = document.getElementById('heatmap-pitch');
+
+            try {
+                const response = await fetch(`/api/player_details?url=${encodeURIComponent(profileUrl)}`);
+                const stats = await response.json();
+
+                if (Object.keys(stats).length === 0) {
+                    container.innerHTML = "<p>Detailed stats not available for this team yet.</p>";
+                    initRadarChart({}); // Default
+                } else {
+                    container.innerHTML = '';
+                    for (const [key, val] of Object.entries(stats)) {
+                        const div = document.createElement('div');
+                        div.className = 'stat-item';
+                        div.innerHTML = `<span>${key}</span><span class="stat-value">${val}</span>`;
+                        container.appendChild(div);
+                    }
+                    initRadarChart(stats);
+                }
+
+                // Generate Heatmap Dots based on position
+                generateHeatmap(playerPos);
+
+            } catch (error) {
+                container.innerHTML = "<p>Error loading details.</p>";
+            }
+        }
+
+        function initRadarChart(stats) {
+            const ctx = document.getElementById('player-radar').getContext('2d');
+
+            // Map stats to standard categories or use defaults
+            const labels = ['Attack', 'Creation', 'Defense', 'Passing', 'Physical', 'Discipline'];
+
+            // Simulation of normalizing stats (0-100)
+            const getVal = (key, def) => {
+                const val = stats[key] || stats[key.toLowerCase()];
+                if (!val) return def;
+                const num = parseFloat(val.toString().replace('%', ''));
+                return isNaN(num) ? def : (num > 100 ? 100 : num);
+            };
+
+            const data = [
+                getVal('Goals', 10) * 5, // scaled for weight
+                getVal('Assists', 5) * 10,
+                getVal('Tackles', 40),
+                getVal('Pass accuracy', 70),
+                getVal('Appearances', 15) * 2,
+                100 - getVal('Yellow cards', 0) * 10
+            ];
+
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Performance Profile',
+                        data: data,
+                        fill: true,
+                        backgroundColor: 'rgba(255, 122, 0, 0.2)',
+                        borderColor: 'rgb(255, 122, 0)',
+                        pointBackgroundColor: 'rgb(255, 122, 0)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(255, 122, 0)'
+                    }]
+                },
+                options: {
+                    elements: { line: { borderWidth: 3 } },
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            pointLabels: { color: '#94a3b8', font: { size: 12 } },
+                            ticks: { display: false, max: 100, min: 0 }
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        function generateHeatmap(pos) {
+            const pitch = document.getElementById('heatmap-pitch');
+            const dotCount = 65;
+
+            // Logic: High-heat dots are small and tight. low-heat dots are large and wide base.
+            const colorLayers = [
+                { hex: '#D32F2F', weight: 0.15, sz: [40, 70], spread: 15, op: 0.6 }, // Very High (Tight Center)
+                { hex: '#FF3B30', weight: 0.2, sz: [60, 90], spread: 25, op: 0.45 },  // High
+                { hex: '#FF9F1C', weight: 0.2, sz: [80, 120], spread: 35, op: 0.35 }, // Medium-High
+                { hex: '#FFD84D', weight: 0.2, sz: [100, 150], spread: 50, op: 0.2 }, // Medium
+                { hex: '#C7D84B', weight: 0.15, sz: [150, 200], spread: 65, op: 0.12 },// Low
+                { hex: '#3F6B3C', weight: 0.1, sz: [200, 280], spread: 80, op: 0.08 } // Base
+            ];
+
+            let bX, bY;
+            if (pos.includes('Forward')) { bX = 80; bY = 50; }
+            else if (pos.includes('Midfielder')) { bX = 50; bY = 50; }
+            else if (pos.includes('Defender')) { bX = 25; bY = 50; }
+            else { bX = 10; bY = 50; }
+
+            for (let i = 0; i < dotCount; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'heatmap-dot';
+
+                const r = Math.random();
+                let L;
+                let cum = 0;
+                for (const item of colorLayers) {
+                    cum += item.weight;
+                    if (r <= cum) { L = item; break; }
+                }
+
+                // Random position within the spread of this intensity level
+                const x = bX + (Math.random() - 0.5) * L.spread * 1.5;
+                const y = bY + (Math.random() - 0.5) * L.spread * 2;
+
+                const size = L.sz[0] + Math.random() * (L.sz[1] - L.sz[0]);
+
+                dot.style.left = `${Math.max(5, Math.min(95, x))}%`;
+                dot.style.top = `${Math.max(5, Math.min(95, y))}%`;
+                dot.style.width = `${size}px`;
+                dot.style.height = `${size}px`;
+                dot.style.background = `radial-gradient(circle, ${L.hex}cc 0%, ${L.hex}33 50%, transparent 80%)`;
+                dot.style.opacity = L.op + (Math.random() * 0.1);
+                dot.style.animationDelay = `${Math.random() * -10}s`;
+
+                pitch.appendChild(dot);
+            }
+        }
+
+        loadDetails();
+
+        // Parallax Effect
+        document.addEventListener('mousemove', (e) => {
+            const glow = document.querySelector('.bg-glow');
+            const x = (window.innerWidth / 2 - e.pageX) / 50;
+            const y = (window.innerHeight / 2 - e.pageY) / 50;
+            glow.style.transform = `translate(${x}px, ${y}px) rotate(${Date.now() / 1000}deg)`;
+        });
+    </script>
+</body>
+
+</html>

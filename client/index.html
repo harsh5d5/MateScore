@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FootySquad | Premium Football Data Scraper</title>
+    <meta name="description"
+        content="Collect and analyze football team squads with precision using our advanced scraping technology.">
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="bg-container">
+        <div class="bg-glow"></div>
+    </div>
+
+    <main>
+        <header>
+            <div class="logo">FOOTYSQUAD</div>
+            <nav>
+                <a href="#features" class="btn" style="color: var(--text-secondary);">Features</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <h1>Dynamic Football Squad Intelligence</h1>
+            <p>The ultimate data collection platform for football enthusiasts. Scrape, analyze, and visualize team
+                squads with unprecedented depth and accuracy.</p>
+
+            <div class="search-container glass-card"
+                style="max-width: 600px; margin: 0 auto; padding: 1rem; display: flex; gap: 1rem;">
+                <input type="text" id="team-input" placeholder="Enter team name (e.g. Real Madrid, Barcelona...)"
+                    style="flex: 1; background: transparent; border: none; color: white; outline: none; font-size: 1.1rem; padding: 0.5rem 1rem;">
+                <button id="search-btn" class="btn btn-primary" style="padding: 0.75rem 1.5rem;">Scrape Team</button>
+            </div>
+
+            <div id="loading" style="display: none; margin-top: 2rem; color: var(--accent-color); font-weight: 600;">
+                Searching and scraping team data...
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="glass-card feature-card">
+                <h3>Real-time Scraping</h3>
+                <p>Instantly retrieve the latest squad lists from top leagues around the world with our optimized
+                    scraping engine.</p>
+            </div>
+            <div class="glass-card feature-card">
+                <h3>Data Enrichment</h3>
+                <p>Not just names—collect stats, market values, and career history for every player in the squad.</p>
+            </div>
+            <div class="glass-card feature-card">
+                <h3>Clean Exports</h3>
+                <p>Download your collected data in various formats including JSON, CSV, and Excel for your own analysis.
+                </p>
+            </div>
+        </section>
+
+        <section id="squad-section" class="glass-card" style="margin-top: 4rem;">
+            <h2 style="margin-bottom: 2rem; font-size: 2.5rem; text-align: center;">Scouted Squad</h2>
+
+            <div class="view-toggle">
+                <button id="grid-view-btn" class="btn btn-primary">Grid View</button>
+                <button id="formation-view-btn" class="btn">Formation View</button>
+            </div>
+
+            <div id="squad-grid" class="features" style="margin-top: 0;">
+                <!-- Data will be loaded here -->
+                <div style="text-align: center; grid-column: 1 / -1; padding: 2rem;">
+                    <p style="color: var(--text-secondary);">Enter a team name above to start scraping player data.</p>
+                </div>
+            </div>
+
+            <div id="squad-formation" class="formation-container">
+                <div class="pitch-overlay"></div>
+                <div class="pitch-center-circle"></div>
+                <!-- Players will be placed here -->
+            </div>
+        </section>
+
+        <section class="glass-card" style="margin-top: 4rem; text-align: center;">
+            <h2 style="margin-bottom: 2rem; font-size: 2.5rem;">Ready to scout the talent?</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2.5rem;">Join the ranks of data-driven football
+                analysts today.</p>
+            <button class="btn btn-primary">Get Started Now</button>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 FootySquad Project - Data Collecting Techniques</p>
+        </footer>
+    </main>
+
+    <script>
+        // Subtle parallax effect on the glow
+        document.addEventListener('mousemove', (e) => {
+            const glow = document.querySelector('.bg-glow');
+            const x = (window.innerWidth / 2 - e.pageX) / 50;
+            const y = (window.innerHeight / 2 - e.pageY) / 50;
+            glow.style.transform = `translate(${x}px, ${y}px) rotate(${Date.now() / 1000}deg)`;
+        });
+
+        // Fetch and display squad data
+        async function loadSquad(teamName = 'Liverpool FC') {
+            const grid = document.getElementById('squad-grid');
+            const loading = document.getElementById('loading');
+            const teamTitle = document.querySelector('#squad-section h2');
+
+            loading.style.display = 'block';
+            grid.style.opacity = '0.5';
+
+            try {
+                const response = await fetch(`/api/search?team=${encodeURIComponent(teamName)}`);
+                const data = await response.json();
+
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+
+                teamTitle.textContent = `${data.team} Squad`;
+                grid.innerHTML = '';
+
+                data.players.forEach(player => {
+                    // Create Grid Card
+                    const card = document.createElement('div');
+                    card.className = 'glass-card feature-card';
+                    card.style.padding = '1.5rem';
+                    card.style.textAlign = 'center';
+                    card.style.cursor = 'pointer';
+
+                    const playerImg = player.image || 'https://via.placeholder.com/150';
+
+                    card.onclick = () => navigateToPlayer(player);
+
+                    card.innerHTML = `
+                        <div style="margin-bottom: 1.5rem; position: relative; display: inline-block;">
+                            <img src="${playerImg}" alt="${player.name}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-color); background: rgba(255,255,255,0.05);">
+                            <div style="position: absolute; bottom: 0; right: 0; background: var(--accent-color); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.75rem; border: 2px solid #030712;">
+                                ${player.number || '-'}
+                            </div>
+                        </div>
+                        <h3 style="font-size: 1.25rem; margin-bottom: 0.25rem;">${player.name}</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">${player.position}</p>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                // Populate Formation
+                renderFormation(data.players);
+            } catch (error) {
+                grid.innerHTML = `<div style="text-align: center; grid-column: 1 / -1; color: #ef4444;">Error: Make sure the server (app.py) is running.</div>`;
+            } finally {
+                loading.style.display = 'none';
+                grid.style.opacity = '1';
+            }
+        }
+
+        function navigateToPlayer(player) {
+            const params = new URLSearchParams({
+                name: player.name,
+                img: player.image,
+                pos: player.position,
+                num: player.number,
+                url: player.profile_url
+            });
+            window.location.href = `/player.html?${params.toString()}`;
+        }
+
+        function renderFormation(players) {
+            const formation = document.getElementById('squad-formation');
+            // Clear existing players but keep lines
+            const lines = formation.querySelectorAll('.pitch-overlay, .pitch-center-circle');
+            formation.innerHTML = '';
+            lines.forEach(l => formation.appendChild(l));
+
+            const positions = { 'Goalkeeper': [], 'Defender': [], 'Midfielder': [], 'Forward': [] };
+            players.forEach(p => {
+                if (p.position in positions) positions[p.position].push(p);
+            });
+
+            const layout = {
+                'Goalkeeper': { y: 90, x: [50] },
+                'Defender': { y: 70, x: [20, 40, 60, 80] },
+                'Midfielder': { y: 40, x: [25, 50, 75] },
+                'Forward': { y: 15, x: [30, 70] }
+            };
+
+            Object.entries(layout).forEach(([pos, coords]) => {
+                const posPlayers = positions[pos] || [];
+                posPlayers.slice(0, coords.x.length).forEach((p, i) => {
+                    const pDiv = document.createElement('div');
+                    pDiv.className = 'formation-player';
+                    pDiv.style.left = `calc(${coords.x[i]}% - 40px)`;
+                    pDiv.style.top = `calc(${coords.y}% - 40px)`;
+                    pDiv.onclick = () => navigateToPlayer(p);
+                    pDiv.style.cursor = 'pointer';
+
+                    pDiv.innerHTML = `
+                        <img src="${p.image || 'https://via.placeholder.com/150'}" alt="${p.name}">
+                        <div class="name">${p.name}</div>
+                    `;
+                    formation.appendChild(pDiv);
+                });
+            });
+        }
+
+        // View Toggling
+        const gridBtn = document.getElementById('grid-view-btn');
+        const formBtn = document.getElementById('formation-view-btn');
+        const gridView = document.getElementById('squad-grid');
+        const formView = document.getElementById('squad-formation');
+
+        gridBtn.addEventListener('click', () => {
+            gridBtn.className = 'btn btn-primary';
+            formBtn.className = 'btn';
+            gridView.style.display = 'grid';
+            formView.classList.remove('active');
+        });
+
+        formBtn.addEventListener('click', () => {
+            formBtn.className = 'btn btn-primary';
+            gridBtn.className = 'btn';
+            gridView.style.display = 'none';
+            formView.classList.add('active');
+        });
+
+        document.getElementById('search-btn').addEventListener('click', () => {
+            const team = document.getElementById('team-input').value;
+            if (team) loadSquad(team);
+        });
+
+        document.getElementById('team-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const team = document.getElementById('team-input').value;
+                if (team) loadSquad(team);
+            }
+        });
+
+        // Initial state is empty, waits for user search
+    </script>
+</body>
+
+</html>

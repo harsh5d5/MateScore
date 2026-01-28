@@ -1,0 +1,390 @@
+{
+    "team": "Al Nasr",
+    "players": [
+        {
+            "name": "Abdulla Mohammed",
+            "position": "Goalkeeper",
+            "number": "40",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/292398.jpg",
+            "profile_url": "https://onefootball.com/en/player/abdulla-mohammed-292398"
+        },
+        {
+            "name": "Adli Mohamed",
+            "position": "Goalkeeper",
+            "number": "53",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/469788.jpg",
+            "profile_url": "https://onefootball.com/en/player/adli-mohamed-469788"
+        },
+        {
+            "name": "Ahmad Shambik",
+            "position": "Goalkeeper",
+            "number": "12",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/221731.jpg",
+            "profile_url": "https://onefootball.com/en/player/ahmad-shambik-221731"
+        },
+        {
+            "name": "Ibrahim Essa",
+            "position": "Goalkeeper",
+            "number": "44",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/177449.jpg",
+            "profile_url": "https://onefootball.com/en/player/ibrahim-essa-177449"
+        },
+        {
+            "name": "Ibrahim Essa Al Balooshi",
+            "position": "Goalkeeper",
+            "number": "15",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/357315.jpg",
+            "profile_url": "https://onefootball.com/en/player/ibrahim-essa-al-balooshi-357315"
+        },
+        {
+            "name": "Jawad Mussa",
+            "position": "Goalkeeper",
+            "number": "67",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/626946.jpg",
+            "profile_url": "https://onefootball.com/en/player/jawad-mussa-626946"
+        },
+        {
+            "name": "Mohammad Al Najjar",
+            "position": "Goalkeeper",
+            "number": "30",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/533633.jpg",
+            "profile_url": "https://onefootball.com/en/player/mohammad-al-najjar-533633"
+        },
+        {
+            "name": "Omar Ahmed Mohamed",
+            "position": "Goalkeeper",
+            "number": "25",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/603032.jpg",
+            "profile_url": "https://onefootball.com/en/player/omar-ahmed-mohamed-603032"
+        },
+        {
+            "name": "Abdulla Idrees",
+            "position": "Defender",
+            "number": "21",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/285444.jpg",
+            "profile_url": "https://onefootball.com/en/player/abdulla-idrees-285444"
+        },
+        {
+            "name": "Ahmad Al Balooshi",
+            "position": "Defender",
+            "number": "77",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/437816.jpg",
+            "profile_url": "https://onefootball.com/en/player/ahmad-al-balooshi-437816"
+        },
+        {
+            "name": "Ali Maroof",
+            "position": "Defender",
+            "number": "47",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/621788.jpg",
+            "profile_url": "https://onefootball.com/en/player/ali-maroof-621788"
+        },
+        {
+            "name": "Costin Amzar",
+            "position": "Defender",
+            "number": "31",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/413630.jpg",
+            "profile_url": "https://onefootball.com/en/player/costin-amzar-413630"
+        },
+        {
+            "name": "David Petrovi\u0107",
+            "position": "Defender",
+            "number": "55",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/363692.jpg",
+            "profile_url": "https://onefootball.com/en/player/david-petrovic-363692"
+        },
+        {
+            "name": "Felipe Motta",
+            "position": "Defender",
+            "number": "52",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/526244.jpg",
+            "profile_url": "https://onefootball.com/en/player/felipe-motta-526244"
+        },
+        {
+            "name": "Glauber",
+            "position": "Defender",
+            "number": "4",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/306002.jpg",
+            "profile_url": "https://onefootball.com/en/player/glauber-306002"
+        },
+        {
+            "name": "Gustavo Alex Mueller",
+            "position": "Defender",
+            "number": "3",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/266606.jpg",
+            "profile_url": "https://onefootball.com/en/player/gustavo-alex-mueller-266606"
+        },
+        {
+            "name": "Jamal Khalifa",
+            "position": "Defender",
+            "number": "35",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/603033.jpg",
+            "profile_url": "https://onefootball.com/en/player/jamal-khalifa-603033"
+        },
+        {
+            "name": "Marius Hoibraten",
+            "position": "Defender",
+            "number": "",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/35075.jpg",
+            "profile_url": "https://onefootball.com/en/player/marius-hoibraten-35075"
+        },
+        {
+            "name": "Mateo Karamati\u0107",
+            "position": "Defender",
+            "number": "5",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/297441.jpg",
+            "profile_url": "https://onefootball.com/en/player/mateo-karamatic-297441"
+        },
+        {
+            "name": "Moustapha Sidibe",
+            "position": "Defender",
+            "number": "91",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/621785.jpg",
+            "profile_url": "https://onefootball.com/en/player/moustapha-sidibe-621785"
+        },
+        {
+            "name": "Rashed Essa",
+            "position": "Defender",
+            "number": "32",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/350651.jpg",
+            "profile_url": "https://onefootball.com/en/player/rashed-essa-350651"
+        },
+        {
+            "name": "Rashid Abdulrahman",
+            "position": "Defender",
+            "number": "56",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/650558.jpg",
+            "profile_url": "https://onefootball.com/en/player/rashid-abdulrahman-650558"
+        },
+        {
+            "name": "Salem Sultan",
+            "position": "Defender",
+            "number": "2",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/190983.jpg",
+            "profile_url": "https://onefootball.com/en/player/salem-sultan-190983"
+        },
+        {
+            "name": "Serdar Saatci",
+            "position": "Defender",
+            "number": "15",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/411023.jpg",
+            "profile_url": "https://onefootball.com/en/player/serdar-saatci-411023"
+        },
+        {
+            "name": "Suhail Mohammad",
+            "position": "Defender",
+            "number": "63",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/626947.jpg",
+            "profile_url": "https://onefootball.com/en/player/suhail-mohammad-626947"
+        },
+        {
+            "name": "Zayed Sultan",
+            "position": "Defender",
+            "number": "24",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/375338.jpg",
+            "profile_url": "https://onefootball.com/en/player/zayed-sultan-375338"
+        },
+        {
+            "name": "Ahmed Raed",
+            "position": "Midfielder",
+            "number": "60",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/544581.jpg",
+            "profile_url": "https://onefootball.com/en/player/ahmed-raed-544581"
+        },
+        {
+            "name": "Ali Abdulaziz",
+            "position": "Midfielder",
+            "number": "88",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/437823.jpg",
+            "profile_url": "https://onefootball.com/en/player/ali-abdulaziz-437823"
+        },
+        {
+            "name": "Bernard Mensah",
+            "position": "Midfielder",
+            "number": "43",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/64360.jpg",
+            "profile_url": "https://onefootball.com/en/player/bernard-mensah-64360"
+        },
+        {
+            "name": "Essa Abdulla Obaid",
+            "position": "Midfielder",
+            "number": "83",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/603031.jpg",
+            "profile_url": "https://onefootball.com/en/player/essa-abdulla-obaid-603031"
+        },
+        {
+            "name": "Hussain Mahdi",
+            "position": "Midfielder",
+            "number": "6",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/285007.jpg",
+            "profile_url": "https://onefootball.com/en/player/hussain-mahdi-285007"
+        },
+        {
+            "name": "Jonatas Santos",
+            "position": "Midfielder",
+            "number": "9",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/383076.jpg",
+            "profile_url": "https://onefootball.com/en/player/jonatas-santos-383076"
+        },
+        {
+            "name": "Kevin Agudelo",
+            "position": "Midfielder",
+            "number": "20",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/249501.jpg",
+            "profile_url": "https://onefootball.com/en/player/kevin-agudelo-249501"
+        },
+        {
+            "name": "Luka Milivojevic",
+            "position": "Midfielder",
+            "number": "19",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/21430.jpg",
+            "profile_url": "https://onefootball.com/en/player/luka-milivojevic-21430"
+        },
+        {
+            "name": "Mehdi Ghayedi",
+            "position": "Midfielder",
+            "number": "10",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/285684.jpg",
+            "profile_url": "https://onefootball.com/en/player/mehdi-ghayedi-285684"
+        },
+        {
+            "name": "Mohamad Subhi Kassem",
+            "position": "Midfielder",
+            "number": "51",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/656004.jpg",
+            "profile_url": "https://onefootball.com/en/player/mohamad-subhi-kassem-656004"
+        },
+        {
+            "name": "Mohammad Abdulbasit Al Abdulla",
+            "position": "Midfielder",
+            "number": "8",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/169875.jpg",
+            "profile_url": "https://onefootball.com/en/player/mohammad-abdulbasit-al-abdulla-169875"
+        },
+        {
+            "name": "Mohammad Zaraei",
+            "position": "Midfielder",
+            "number": "46",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/621784.jpg",
+            "profile_url": "https://onefootball.com/en/player/mohammad-zaraei-621784"
+        },
+        {
+            "name": "Moussa Ndiaye",
+            "position": "Midfielder",
+            "number": "38",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/489212.jpg",
+            "profile_url": "https://onefootball.com/en/player/moussa-ndiaye-489212"
+        },
+        {
+            "name": "Obaid Salem",
+            "position": "Midfielder",
+            "number": "44",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/576746.jpg",
+            "profile_url": "https://onefootball.com/en/player/obaid-salem-576746"
+        },
+        {
+            "name": "Said Swidan",
+            "position": "Midfielder",
+            "number": "92",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/329434.jpg",
+            "profile_url": "https://onefootball.com/en/player/said-swidan-329434"
+        },
+        {
+            "name": "Salem Al Somhi",
+            "position": "Midfielder",
+            "number": "80",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/462389.jpg",
+            "profile_url": "https://onefootball.com/en/player/salem-al-somhi-462389"
+        },
+        {
+            "name": "Saood Tariq Obaid",
+            "position": "Midfielder",
+            "number": "62",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/603030.jpg",
+            "profile_url": "https://onefootball.com/en/player/saood-tariq-obaid-603030"
+        },
+        {
+            "name": "Shehab Abdallah",
+            "position": "Midfielder",
+            "number": "84",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/656005.jpg",
+            "profile_url": "https://onefootball.com/en/player/shehab-abdallah-656005"
+        },
+        {
+            "name": "Solomon Sosu",
+            "position": "Midfielder",
+            "number": "14",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/562346.jpg",
+            "profile_url": "https://onefootball.com/en/player/solomon-sosu-562346"
+        },
+        {
+            "name": "Tariq Ahmed",
+            "position": "Midfielder",
+            "number": "5",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/331385.jpg",
+            "profile_url": "https://onefootball.com/en/player/tariq-ahmed-331385"
+        },
+        {
+            "name": "Zaid Osama",
+            "position": "Midfielder",
+            "number": "75",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/542913.jpg",
+            "profile_url": "https://onefootball.com/en/player/zaid-osama-542913"
+        },
+        {
+            "name": "Abdoulaye Toure",
+            "position": "Forward",
+            "number": "28",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/530731.jpg",
+            "profile_url": "https://onefootball.com/en/player/abdoulaye-toure-530731"
+        },
+        {
+            "name": "Cheickna Doumbia",
+            "position": "Forward",
+            "number": "23",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/472493.jpg",
+            "profile_url": "https://onefootball.com/en/player/cheickna-doumbia-472493"
+        },
+        {
+            "name": "Emanuell Ferreira",
+            "position": "Forward",
+            "number": "29",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/603029.jpg",
+            "profile_url": "https://onefootball.com/en/player/emanuell-ferreira-603029"
+        },
+        {
+            "name": "Karim Mahmoud",
+            "position": "Forward",
+            "number": "73",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/621786.jpg",
+            "profile_url": "https://onefootball.com/en/player/karim-mahmoud-621786"
+        },
+        {
+            "name": "Marouan Azarkan",
+            "position": "Forward",
+            "number": "17",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/318858.jpg",
+            "profile_url": "https://onefootball.com/en/player/marouan-azarkan-318858"
+        },
+        {
+            "name": "Mohammad Mustafa",
+            "position": "Forward",
+            "number": "48",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/621787.jpg",
+            "profile_url": "https://onefootball.com/en/player/mohammad-mustafa-621787"
+        },
+        {
+            "name": "Muhammed Aye\u015f",
+            "position": "Forward",
+            "number": "33",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/553498.jpg",
+            "profile_url": "https://onefootball.com/en/player/muhammed-ayes-553498"
+        },
+        {
+            "name": "Ramon Mierez",
+            "position": "Forward",
+            "number": "13",
+            "image": "https://image-service.onefootball.com/transform?w=96&dpr=2&image=https://images.onefootball.com/players/180/179196.jpg",
+            "profile_url": "https://onefootball.com/en/player/ramon-mierez-179196"
+        }
+    ]
+}
