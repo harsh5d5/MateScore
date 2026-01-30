@@ -2,22 +2,24 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import time
+from concurrent.futures import ThreadPoolExecutor
+
+# Use a global session for connection pooling
+session = requests.Session()
+session.headers.update({
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+})
 
 def get_team_squad_url(team_name):
     """Searches for a team and returns its squad URL."""
     search_url = f"https://onefootball.com/en/search?q={team_name.replace(' ', '+')}"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-    }
-
+    
     try:
         print(f"Searching for team: {team_name}...")
-        response = requests.get(search_url, headers=headers)
+        response = session.get(search_url)
         response.raise_for_status()
         soup = BeautifulSoup(response.content, "html.parser")
         
-        # Find the first team link in the search results
-        # Usually inside a "Teams" section
         team_link = soup.find('a', href=lambda x: x and '/en/team/' in x)
         
         if team_link:
@@ -25,7 +27,6 @@ def get_team_squad_url(team_name):
             if not base_team_url.startswith('http'):
                 base_team_url = "https://onefootball.com" + base_team_url
             
-            # Ensure it points to the squad page
             if not base_team_url.endswith('/squad'):
                 squad_url = base_team_url.rstrip('/') + '/squad'
             else:
@@ -44,13 +45,9 @@ def scrape_squad(team_name="Liverpool FC"):
         print(f"Could not find squad for '{team_name}'")
         return None
 
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-    }
-
     print(f"Fetching squad for {official_name} from {squad_url}...")
     try:
-        response = requests.get(squad_url, headers=headers)
+        response = session.get(squad_url)
         response.raise_for_status()
     except requests.exceptions.RequestException as e:
         print(f"Error fetching the page: {e}")
@@ -94,7 +91,6 @@ def scrape_squad(team_name="Liverpool FC"):
                 break
         
         if not any(p['name'] == player_name for p in squad):
-            # Resolve profile URL
             profile_path = link['href']
             full_profile_url = profile_path if profile_path.startswith('http') else "https://onefootball.com" + profile_path
             
@@ -118,61 +114,68 @@ def scrape_squad(team_name="Liverpool FC"):
     
     return None
 
-def get_player_details(profile_url):
-    """Scrapes detailed stats for a specific player."""
-    stats_url = profile_url.rstrip('/') + '/stats'
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-    }
-
+def fetch_details_page(url):
+    """Worker function for parallel fetching."""
     try:
-        response = requests.get(stats_url, headers=headers)
-        response.raise_for_status()
-        soup = BeautifulSoup(response.content, "html.parser")
-        
-        stats = {}
-        
-        # Target specific stat sections to avoid footer/nav links
-        # OneFootball often groups stats in semantic containers
-        stat_containers = soup.find_all(['div', 'section'], class_=lambda x: x and ('performance-stats' in x or 'stats-group' in x))
-        
-        # If no containers, look for specific stat list items
-        if not stat_containers:
-            stat_items = soup.find_all('li', class_=lambda x: x and 'stat-item' in x)
-        else:
-            stat_items = []
-            for container in stat_containers:
-                stat_items.extend(container.find_all('li'))
+        resp = session.get(url, timeout=5)
+        if resp.status_code == 200:
+            return BeautifulSoup(resp.content, "html.parser")
+    except Exception as e:
+        print(f"Error fetching {url}: {e}")
+    return None
 
+def get_player_details(profile_url):
+    """Scrapes detailed stats for a specific player using parallel requests."""
+    stats = {}
+    stats_url = profile_url.rstrip('/') + '/stats'
+    
+    # 1. Fetch both pages in parallel for speed
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        futures = {
+            'main': executor.submit(fetch_details_page, profile_url),
+            'stats': executor.submit(fetch_details_page, stats_url)
+        }
+        
+    main_soup = futures['main'].result()
+    stats_soup = futures['stats'].result()
+
+    # 2. Extract from Main Profile
+    if main_soup:
+        target_labels = ["Age", "Position", "Country", "Height", "Weight", "Preferred foot", "Date of birth", "Jersey number"]
+        for label in target_labels:
+            label_tag = main_soup.find(string=lambda t: t and t.strip() == label)
+            if label_tag:
+                parent = label_tag.parent
+                container = parent.parent
+                potential_values = container.find_all(string=True)
+                for val in potential_values:
+                    cleaned_val = val.strip()
+                    if cleaned_val and cleaned_val != label and len(cleaned_val) < 25:
+                        key_name = label
+                        if label == "Country": key_name = "Nationality"
+                        stats[key_name] = cleaned_val
+                        break
+
+    # 3. Extract from Stats Page
+    if stats_soup:
+        stat_items = stats_soup.find_all(['li', 'div'], class_=lambda x: x and any(k in x.lower() for k in ['stat-item', 'stats-group', 'performance']))
         for item in stat_items:
-            # Look for Label and Value spans
             spans = item.find_all('span')
             if len(spans) >= 2:
                 key = spans[0].get_text(strip=True)
                 val = spans[1].get_text(strip=True)
-                
-                # Filter out obvious junk (longer than 30 chars or containing social links)
                 if key and val and len(key) < 40 and len(val) < 20:
-                    if not any(junk in key.lower() for junk in ['instagram', 'facebook', 'app store', 'google play']):
+                    if key not in stats:
                         stats[key] = val
-                    
-        # Fallback for simple statistics if the above didn't find much
-        if len(stats) < 3:
-            keywords = ["Goals", "Assists", "Appearances", "Pass accuracy", "Tackles", "Yellow cards"]
-            for kw in keywords:
-                tag = soup.find(text=lambda t: t and kw in t)
-                if tag:
-                    parent = tag.parent
-                    val_tag = parent.find_next(['span', 'div'])
-                    if val_tag:
-                        val = val_tag.get_text(strip=True)
-                        if val and len(val) < 10:
-                            stats[kw] = val
+                            
+    # Final cleanup
+    if "Age" in stats and "(" in stats["Age"]:
+        stats["Age"] = stats["Age"].split("(")[0].strip()
+    
+    if "Country" in stats:
+        stats["Nationality"] = stats.pop("Country")
 
-        return stats
-    except Exception as e:
-        print(f"Error fetching player details: {e}")
-        return {}
+    return stats
 
 if __name__ == "__main__":
     import sys
